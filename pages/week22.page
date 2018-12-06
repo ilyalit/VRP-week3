@@ -1,0 +1,22 @@
+<apex:page controller="Week22" sidebar="false" showHeader="false">
+    <apex:slds />    
+    <apex:pageBlock title="Products list">
+        <apex:pageBlockTable value="{!products}" var="prd">
+            <apex:column value="{!prd.Image__c}" headerValue="IMAGE" style="padding: 0px 5px 0px 5px;"/>           
+            <apex:column style="padding: 0px 25px 0px 25px; width: 200px;">
+                <apex:form >
+                    <apex:outputLink value="description?id={!prd.Id}" target="_blank">{!prd.Name}</apex:outputLink>
+                </apex:form>
+            </apex:column>
+            <apex:column value="{!prd.Title__c}" headerValue="TITLE" style="padding: 0px 25px 0px 25px;"/>                       
+            <apex:column headerClass="text_review" headerValue="DESCRIPTION" style="padding: 0px 25px 0px 25px;">            
+            {!IF(LEN(prd.Description__c) <= 100, prd.Description__c, LEFT(prd.Description__c, 100)+'...')}
+            	<apex:outputLink value="description?id={!prd.Id}"  target="_blank">More</apex:outputLink>
+            </apex:column>                        
+            <apex:column value="{!prd.Cost__c}" headerValue="COST" style="padding: 0px 25px 0px 25px;"/>           
+            <apex:column style="padding: 0px 25px 0px 25px;">
+                    <button type="button" onclick="window.location.href='/apex/orderpage?id={!prd.Id}'" class="slds-button slds-button_brand">Buy</button>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

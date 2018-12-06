@@ -1,0 +1,102 @@
+<!--
+ - Created by Илья on 29.11.2018.
+ -->
+
+<apex:page id="OrderPage" controller="description" tabStyle="Contact">
+    <apex:slds />
+    <style>
+        .slds-form-element{
+            margin-left: 20%;
+            width: 200px;
+        }
+        .slds-page-header__name-title{
+            margin-left: 20%;
+        }
+    </style>
+    <apex:repeat value="{!ProductsWithId}" var="productsId">
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col">
+                                    <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title slds-truncate" title="Contact Information">Contact Information</span>
+                                    </h1>
+                                </div>
+                                    </div>
+                                    <div class="slds-col">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title slds-truncate" title="Product Information">Product Information</span>
+                                    </h1>
+                                </div>
+                                </div>
+                                </div>
+                </div>
+            </div>
+        </div>
+
+        <apex:form >
+        <div class="slds-grid slds-gutters">
+
+            <div class="slds-col">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="text-input-id-1">First Name:</label>
+                    <div class="slds-form-element__control">
+                        <apex:inputText id="text-input-id-1" styleClass="slds-input" value="{!ourFirstName}"/>
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="text-input-id-2">Last Name:</label>
+                    <div class="slds-form-element__control">
+                        <apex:inputText id="text-input-id-2" styleClass="slds-input" value="{!ourLastName}" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="text-input-id-3">Email:</label>
+                    <div class="slds-form-element__control">
+                        <apex:inputText id="text-input-id-3" styleClass="slds-input" value="{!ourEmail}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col">
+                <div class="slds-form-element">
+                <label class="slds-form-element__label" for="out2">Product Name:</label>
+                    <div class="slds-form-element__control">
+                    <apex:outputField id="out2" value="{!productsId.Name}" styleClass="slds-text-body_regular"/>
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="out3">Cost:</label>
+                    <div class="slds-form-element__control">
+                        <apex:outputField id="out3" value="{!productsId.Cost__c}" styleClass="slds-text-body_regular"/>
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="out1">Unit Count:</label>
+                    <div class="slds-form-element__control">
+                <apex:inputText value="{!amounts}" styleClass="slds-input" id="out1">
+                    <apex:actionSupport event="onkeyup" action="{!calculate}" reRender="out"/>
+                </apex:inputText>
+                    </div>
+                </div>
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="out">Total Amount:</label>
+                    <div class="slds-form-element__control">
+                        <apex:outputText id="out" value="$ {!TotalAmounts}" styleClass="slds-text-body_regular"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <apex:pageMessages />
+    <div style="height: 180px;">
+        <div class="slds-docked-form-footer">
+            <button type="button" onclick="window.location.href='/apex/week22'" class="slds-button slds-button_neutral">To shopping</button>
+            <apex:commandButton action="{!save}" value="Buy" styleClass="slds-button slds-button_brand"/>
+        </div>
+    </div>
+    </apex:form>
+    </apex:repeat>
+</apex:page>
