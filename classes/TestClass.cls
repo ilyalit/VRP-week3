@@ -25,12 +25,8 @@ public with sharing class TestClass {
         for(Integer i=0;i<10;i++) {
             testContacts.add(new Contact(FirstName = 'TestName'+i, LastName = 'TestLastName'+i, Email = 'testemail'+i+'@mail.com'));
         }
-
         insert testContacts;
-
     }
-
-
 @isTest public static void saveTestInvalidAmounts(){
     description x = new description();
     x.amounts = 50000;
@@ -68,20 +64,13 @@ public with sharing class TestClass {
         Contact insertedContact = [SELECT FirstName, LastName, Email FROM Contact WHERE Email='testemail9@mail.com' LIMIT 1];
         System.assertEquals('NormalLastName',insertedContact.LastName);
         System.assertEquals('NormalFirstName',insertedContact.FirstName);
-        //list
-        /*List<Order_Table__c> ourHopes =
-        Order_Table__c insertedOrder = [SELECT Products_Page__c, Units__c, Order_Amount__c, Contact__c FROM Order_Table__c];
-        System.assertEquals();*/
     }
     @isTest public static void calculateTest(){
         description d = new description();
         d.amounts = 5;
         Products_Table_Page__c products = [SELECT Id FROM Products_Table_Page__c WHERE Name='TestProd' LIMIT 1];
         ApexPages.currentPage().getParameters().put('id', products.Id);
-
         d.calculate();
-
-
         System.assertEquals(5000,d.TotalAmounts);
     }
 
