@@ -18,8 +18,9 @@ public with sharing class TestClass {
     }
     @testSetup static void setup() {
         // Create common test accounts
+        insert new Org_Configuration__c(Period_Term__c = 7);
         List<Products_Table_Page__c> testProducts = new List<Products_Table_Page__c>();
-        testProducts.add(new Products_Table_Page__c(Name = 'TestProd', Units_Available__c=10, Unit_Price__c=100));
+        testProducts.add(new Products_Table_Page__c(Name = 'TestProd', Units_Available__c=10, Cost__c = 100));
         insert testProducts;
         List<Contact> testContacts = new List<Contact>();
         for(Integer i=0;i<10;i++) {
@@ -71,7 +72,7 @@ public with sharing class TestClass {
         Products_Table_Page__c products = [SELECT Id FROM Products_Table_Page__c WHERE Name='TestProd' LIMIT 1];
         ApexPages.currentPage().getParameters().put('id', products.Id);
         d.calculate();
-        System.assertEquals(5000,d.TotalAmounts);
+        System.assertEquals(500,d.TotalAmounts);
     }
 
 }
